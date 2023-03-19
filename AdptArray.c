@@ -41,13 +41,14 @@ void DeleteAdptArray(PAdptArray paa){
     free(paa);
 }
 Result SetAdptArrayAt(PAdptArray paa, int i, PElement element){
-    PElement *new_pel = NULL;
-
     if (paa == NULL)
         return FAIL;
 
+    if(i < 0)
+        return FAIL;    
+
     if (i >= paa->size){
-        new_pel = calloc((i+1),sizeof(PElement));
+        PElement *new_pel = calloc((i+1),sizeof(PElement));
         if(new_pel == NULL)
             return FAIL;
 
@@ -72,12 +73,10 @@ PElement GetAdptArrayAt(PAdptArray paa, int i){
     if (paa == NULL)
         return NULL;
 
-    if (i < 0 || i >= paa->size)
+    if (i < 0 || i >= paa->size || paa->pel[i] == NULL)
         return NULL;
 
-    if(paa->pel[i] != NULL)
-        return paa->Copy_func(paa->pel[i]);
-    return NULL;    
+    return paa->Copy_func(paa->pel[i]);
 }
 
 int GetAdptArraySize(PAdptArray paa){
