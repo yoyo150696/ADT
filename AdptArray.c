@@ -64,6 +64,8 @@ Result SetAdptArrayAt(PAdptArray paa, int i, PElement element){
         paa->pel = new_pel;
         paa->size = i + 1;
     }
+    if(paa->pel[i] != NULL)
+        paa->Dell_func(paa->pel[i]);
 
     paa->pel[i] = paa->Copy_func(element);
 
